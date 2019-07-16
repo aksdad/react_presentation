@@ -6,10 +6,86 @@
   border-color: #000;
   border-style: solid;
   border-radius: 15px;
+  display:flex;
+  flex-direction: column;
+  align-items: center;
+  background: rgb(255, 255, 255);
+}
+
+.todoInput {
+  width: 100%;
+  display: flex;
+}
+
+.todoInput input {
+  background: rgb(236, 236, 236);
+  border: none;
+  padding: 0.5em;
+  flex-grow: 1;
+  font-size: 1.3em;
+}
+
+.todoInput *:focus {
+  outline: none;
+}
+
+.todoInput button {
+  background: rgb(236, 236, 236);
+  border: none;
+  padding: 0.5em 0.8em;
+  float: right;
+  font-size: 1.3em;
+  -webkit-transition: all 0.8s;
+  transition: all 0.8s;
+}
+
+.todoInput button:active {
+  background: rgb(209, 209, 209);
+
 }
 
 body {
   display: flex;
   justify-content: center;
   padding: 1em;
+  background: rgb(236, 236, 236);
+}
+
+.todoItem {
+  width: 96%;
+  background: rgb(236, 236, 236);
+  padding: 0.5em;
+  color: rgb(29, 29, 29);
+  box-sizing: content-box;
+  -webkit-animation: appear 1s ease;
+  animation: appear 1s ease;
+  -webkit-animation-iteration-count: 1;
+  animation-iteration-count: 1;
+  -webkit-transition: opacity 1s;
+  transition: opacity 1s;
+  opacity: 0.65;
+}
+
+.todoItem:hover {
+  opacity: 1;
+}
+
+@-webkit-keyframes appear {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}
+
+@keyframes appear {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
 }

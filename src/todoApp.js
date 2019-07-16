@@ -29,6 +29,7 @@ class TodoInput extends React.Component {
           type="text"
           onChange={e => this.onInputChange(e)}
           id="todoInputBox"
+          placeholder="Enter a new item here"
         />
         <button onClick={() => this.handleNewClick()}>+</button>
       </div>
