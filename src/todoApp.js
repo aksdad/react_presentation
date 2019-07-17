@@ -1,6 +1,13 @@
 import React from "react";
 import "./todo.css";
 
+class TodoItem extends React.Component {
+  render() {
+    const { text } = this.props;
+    return <div className="todoItem">{text}</div>;
+  }
+}
+
 class TodoInput extends React.Component {
   constructor(props) {
     super(props);
@@ -15,7 +22,6 @@ class TodoInput extends React.Component {
       onClickNewItem(currentText);
     }
     this.setState({ currentText: "" });
-    document.getElementById("todoInputBox").value = "";
   }
 
   onInputChange(e) {
@@ -23,6 +29,7 @@ class TodoInput extends React.Component {
   }
 
   render() {
+    const { currentText } = this.state;
     return (
       <div className="todoInput">
         <input
@@ -30,6 +37,7 @@ class TodoInput extends React.Component {
           onChange={e => this.onInputChange(e)}
           id="todoInputBox"
           placeholder="Enter a new item here"
+          value={currentText}
         />
         <button onClick={() => this.handleNewClick()}>+</button>
       </div>
@@ -41,23 +49,25 @@ export default class TodoApp extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { items: [] };
+    this.state = { items: [], keyCounter: 0 };
     this.handleOnClickNewItem = this.handleOnClickNewItem.bind(this);
   }
 
   handleOnClickNewItem(newItem) {
+    const { keyCounter } = this.state;
+    const newEl = <TodoItem text={newItem} key={keyCounter} />
     this.setState({
-      items: [...this.state.items, newItem]
+      items: [...this.state.items, newEl],
+      keyCounter: keyCounter + 1,
     });
+    
   }
 
   render() {
     return (
       <div className="todo">
         <TodoInput onClickNewItem={this.handleOnClickNewItem} />
-        {this.state.items.map(item => {
-          return <div className="todoItem">{item}</div>;
-        })}
+        {this.state.items}
       </div>
     );
   }
