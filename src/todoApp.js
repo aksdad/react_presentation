@@ -1,6 +1,26 @@
 import React from "react";
 import "./todo.css";
 
+class TodoItem extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.handleDelete = this.handleDelete.bind(this);
+  }
+
+  handleDelete() {
+    const deleteFunc = this.props.deleteItem;
+    const { id } = this.props;
+    deleteFunc(id);
+  }
+
+  render() {
+    const {text} = this.props;
+
+    return <div className="todoItem" onClick={() => this.handleDelete()}>{text}</div>;
+  }
+}
+
 class TodoInput extends React.Component {
   constructor(props) {
     super(props);
@@ -15,7 +35,6 @@ class TodoInput extends React.Component {
       onClickNewItem(currentText);
     }
     this.setState({ currentText: "" });
-    document.getElementById("todoInputBox").value = "";
   }
 
   onInputChange(e) {
@@ -30,6 +49,7 @@ class TodoInput extends React.Component {
           onChange={e => this.onInputChange(e)}
           id="todoInputBox"
           placeholder="Enter a new item here"
+          value={this.state.currentText}
         />
         <button onClick={() => this.handleNewClick()}>+</button>
       </div>
@@ -41,23 +61,32 @@ export default class TodoApp extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { items: [] };
+    this.state = { items: [], keyCounter: 0 };
     this.handleOnClickNewItem = this.handleOnClickNewItem.bind(this);
+    this.deleteItem = this.deleteItem.bind(this);
   }
 
   handleOnClickNewItem(newItem) {
+    const {keyCounter} = this.state;
+    const el = <TodoItem text={newItem} deleteItem={this.deleteItem} key={keyCounter} id={keyCounter}/>;
     this.setState({
-      items: [...this.state.items, newItem]
+      items: [...this.state.items, el],
+      keyCounter: keyCounter + 1
     });
+  }
+
+  deleteItem(item) {
+    const items = this.state.items;
+    this.setState({
+      items: items.filter((x) => x.props.id !== item),
+    })
   }
 
   render() {
     return (
       <div className="todo">
         <TodoInput onClickNewItem={this.handleOnClickNewItem} />
-        {this.state.items.map(item => {
-          return <div className="todoItem">{item}</div>;
-        })}
+        {this.state.items}
       </div>
     );
   }

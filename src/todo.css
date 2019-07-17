@@ -39,6 +39,10 @@
   transition: all 0.8s;
 }
 
+.todoInput button:hover {
+  cursor: pointer;
+}
+
 .todoInput button:active {
   background: rgb(209, 209, 209);
 
@@ -68,6 +72,7 @@ body {
 
 .todoItem:hover {
   opacity: 1;
+  cursor: default;
 }
 
 @-webkit-keyframes appear {
