@@ -68,6 +68,23 @@ body {
 
 .todoItem:hover {
   opacity: 1;
+  cursor: pointer;
+}
+
+.todoItem * {
+  display: inline-block;
+  vertical-align: middle;
+  margin-top: -2px;
+}
+
+.todoCheckBox {
+  width: 1em;
+  height: 1em;
+  background: #FFF;
+  border-radius: 50%;
+  border: solid #CCC 1px;
+  margin: 0;
+  margin-right: 5px;
 }
 
 @-webkit-keyframes appear {

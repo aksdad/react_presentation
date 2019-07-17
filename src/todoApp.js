@@ -4,7 +4,12 @@ import "./todo.css";
 class TodoItem extends React.Component {
   render() {
     const { text } = this.props;
-    return <div className="todoItem">{text}</div>;
+    return (
+      <div className="todoItem">
+        <div className="todoCheckBox" />
+        <span>{text}</span>
+      </div>
+    );
   }
 }
 
@@ -60,7 +65,6 @@ export default class TodoApp extends React.Component {
       items: [...this.state.items, newEl],
       keyCounter: keyCounter + 1,
     });
-    
   }
 
   render() {
