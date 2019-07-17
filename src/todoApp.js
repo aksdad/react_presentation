@@ -1,6 +1,34 @@
 import React from "react";
 import "./todo.css";
 
+
+export default class TodoApp extends React.Component {
+  constructor(props) {
+    super(props);
+    
+    this.state = { items: [], keyCounter: 0 };
+    this.handleOnClickNewItem = this.handleOnClickNewItem.bind(this);
+  }
+  
+  handleOnClickNewItem(newItem) {
+    const { keyCounter } = this.state;
+    const newEl = <TodoItem text={newItem} key={keyCounter} />
+    this.setState({
+      items: [...this.state.items, newEl],
+      keyCounter: keyCounter + 1,
+    });
+  }
+  
+  render() {
+    return (
+      <div className="todo">
+        <TodoInput onClickNewItem={this.handleOnClickNewItem} />
+        {this.state.items}
+      </div>
+    );
+  }
+}
+
 class TodoItem extends React.Component {
   render() {
     const { text } = this.props;
@@ -45,33 +73,6 @@ class TodoInput extends React.Component {
           value={currentText}
         />
         <button onClick={() => this.handleNewClick()}>+</button>
-      </div>
-    );
-  }
-}
-
-export default class TodoApp extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = { items: [], keyCounter: 0 };
-    this.handleOnClickNewItem = this.handleOnClickNewItem.bind(this);
-  }
-
-  handleOnClickNewItem(newItem) {
-    const { keyCounter } = this.state;
-    const newEl = <TodoItem text={newItem} key={keyCounter} />
-    this.setState({
-      items: [...this.state.items, newEl],
-      keyCounter: keyCounter + 1,
-    });
-  }
-
-  render() {
-    return (
-      <div className="todo">
-        <TodoInput onClickNewItem={this.handleOnClickNewItem} />
-        {this.state.items}
       </div>
     );
   }
